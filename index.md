@@ -9,4 +9,4 @@ a stable link.
 
 ## Articles
 
-- [Web research (CLAUDE.md section)](/articles/claude-md-web-research/)
+- [Web research (CLAUDE.md section)](articles/claude-md-web-research/)

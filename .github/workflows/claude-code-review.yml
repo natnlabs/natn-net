@@ -1,0 +1,26 @@
+name: Claude Code Review
+
+# Thin wrapper around natnlabs-skills' claude-code-review-reusable.yml
+# (natnlabs/sdlc#23 precedent, natnlabs/sdlc#423 + natnlabs-skills#137). All
+# review-invocation logic -- including the --disallowedTools silent-no-op
+# fix -- lives in the reusable workflow; this file's only job is translating
+# this repo's `pull_request` event into that workflow's inputs. A fix to the
+# review invocation now lands once in natnlabs-skills, not once per repo --
+# the propagation burden natnlabs/sdlc#29 hit for a single one-line fix
+# across 10 repos is what this shape exists to remove.
+#
+# Per claude-code-sdlc.md, this is a 🔴 file — modifications require Nathan's explicit OK.
+# DO NOT also create .github/workflows/claude.yml — that workflow expands the action
+# surface to "any commenter can spawn a run," which we keep off intentionally.
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review, reopened]
+
+jobs:
+  claude-review:
+    uses: natnlabs/natnlabs-skills/.github/workflows/claude-code-review-reusable.yml@main
+    with:
+      repo: ${{ github.repository }}
+      pr_number: ${{ github.event.pull_request.number }}
+    secrets: inherit

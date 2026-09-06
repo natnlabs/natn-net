@@ -12,6 +12,19 @@ name: Claude Code Review
 # Per claude-code-sdlc.md, this is a 🔴 file — modifications require Nathan's explicit OK.
 # DO NOT also create .github/workflows/claude.yml — that workflow expands the action
 # surface to "any commenter can spawn a run," which we keep off intentionally.
+#
+# permissions is required here, explicitly, even though the callee
+# (claude-code-review-reusable.yml) also declares its own job-level
+# permissions. This repo's default GITHUB_TOKEN permission is `read`
+# (Settings -> Actions -> General -> Workflow permissions). A caller job
+# with no `permissions:` block inherits that read-only default, and a
+# reusable-workflow call can never grant the callee MORE than the caller
+# effectively has -- so the callee's request for pull-requests:write /
+# issues:write / id-token:write gets rejected before any job starts,
+# surfacing as `startup_failure` with zero jobs (not a clear error message).
+# Confirmed live: the pre-cutover claude-code-review.yml worked because it
+# declared these permissions on its own job directly; this wrapper didn't,
+# and failed the same way until this block was added.
 
 on:
   pull_request:
@@ -19,6 +32,11 @@ on:
 
 jobs:
   claude-review:
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      id-token: write
     uses: natnlabs/natnlabs-skills/.github/workflows/claude-code-review-reusable.yml@main
     with:
       repo: ${{ github.repository }}

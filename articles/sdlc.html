@@ -1,0 +1,321 @@
+---
+permalink: /articles/sdlc/
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="How a fleet of AI coding agents runs its own software-delivery lifecycle — issue-driven, blast-radius-scoped autonomy, and a short list of rules nothing can argue around.">
+<title>The NatnLabs SDLC</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+  :root {
+    --ground:   #EDEFEA;
+    --surface:  #F7F8F4;
+    --sunken:   #E4E7DF;
+    --ink:      #191D19;
+    --ink-2:    #4A524C;
+    --ink-3:    #7C857E;
+    --rule:     #D3D8CE;
+    --amber:    #A0590A;
+    --amber-dim:#C9A470;
+    --teal:     #146B60;
+    --shadow:   0 1px 2px rgba(25,29,25,.06), 0 8px 24px -12px rgba(25,29,25,.14);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #131614;
+      --surface:  #1B1F1C;
+      --sunken:   #0E100F;
+      --ink:      #E4E8E1;
+      --ink-2:    #A8B0A7;
+      --ink-3:    #79827A;
+      --rule:     #2C322D;
+      --amber:    #E0A24A;
+      --amber-dim:#6E5730;
+      --teal:     #4FB3A3;
+      --shadow:   0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:   #131614;
+    --surface:  #1B1F1C;
+    --sunken:   #0E100F;
+    --ink:      #E4E8E1;
+    --ink-2:    #A8B0A7;
+    --ink-3:    #79827A;
+    --rule:     #2C322D;
+    --amber:    #E0A24A;
+    --amber-dim:#6E5730;
+    --teal:     #4FB3A3;
+    --shadow:   0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: Spectral, Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main { max-width: 1040px; margin: 0 auto; padding: 0 24px 96px; }
+
+  .col   { max-width: 65ch; margin-inline: auto; }
+  .wide  { max-width: 1040px; margin-inline: auto; }
+
+  header.mast {
+    max-width: 1040px; margin: 0 auto; padding: 72px 24px 0;
+  }
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    font-size: 11px; font-weight: 500; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--ink-3);
+    margin: 0 0 28px;
+  }
+  h1 {
+    font-family: Spectral, Georgia, serif;
+    font-weight: 600; font-size: clamp(38px, 6.4vw, 62px);
+    line-height: 1.04; letter-spacing: -.02em;
+    text-wrap: balance; margin: 0 0 24px; max-width: 16ch;
+  }
+  .standfirst {
+    font-size: clamp(18px, 2.1vw, 21px); line-height: 1.55;
+    color: var(--ink-2); max-width: 56ch; margin: 0;
+    text-wrap: pretty;
+  }
+  .mast-rule {
+    height: 1px; background: var(--rule);
+    max-width: 1040px; margin: 56px auto 0;
+  }
+
+  section { margin-top: 60px; }
+  h2 {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    font-size: 13px; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--amber);
+    margin: 0 0 20px; text-wrap: balance;
+  }
+  h3 {
+    font-family: Spectral, Georgia, serif;
+    font-size: 22px; font-weight: 600; letter-spacing: -.01em;
+    margin: 36px 0 12px; text-wrap: balance;
+  }
+  p { margin: 0 0 18px; text-wrap: pretty; }
+  p.lead { font-size: 19px; color: var(--ink-2); }
+  strong { font-weight: 600; }
+  em { font-style: italic; }
+  a { color: var(--amber); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 2px; }
+
+  code {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    font-size: .86em; background: var(--sunken);
+    padding: .1em .34em; border-radius: 3px;
+    overflow-wrap: break-word;
+  }
+
+  .disclosure {
+    border-left: 2px solid var(--rule);
+    padding: 2px 0 2px 18px;
+    font-size: 15px; color: var(--ink-3);
+    margin: 34px auto 0; max-width: 65ch;
+  }
+  .disclosure p { margin: 0; }
+
+  figure.evidence {
+    margin: 26px auto; max-width: 65ch;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--amber);
+    border-radius: 3px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  figure.evidence.ok { border-left-color: var(--teal); }
+  .evidence-head {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10px; font-weight: 600; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-3);
+    padding: 11px 18px 0;
+  }
+  .evidence-body { overflow-x: auto; padding: 8px 18px 16px; }
+  .evidence-body pre {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12.5px; line-height: 1.72; color: var(--ink-2);
+    margin: 0; white-space: pre;
+  }
+  .evidence-body pre b { color: var(--ink); font-weight: 600; }
+  figcaption {
+    font-size: 14px; color: var(--ink-3);
+    padding: 0 18px 14px; border-top: 1px solid var(--rule);
+    padding-top: 12px;
+  }
+
+  .classes {
+    display: grid; gap: 16px; margin-top: 8px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .cls {
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 4px; padding: 0 0 20px; box-shadow: var(--shadow);
+    display: flex; flex-direction: column;
+  }
+  .cls-stripe { height: 3px; background: var(--teal); border-radius: 4px 4px 0 0; }
+  .cls-inner { padding: 20px 20px 0; }
+  .cls h4 {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--ink);
+    margin: 0 0 16px; line-height: 1.5;
+  }
+  .cls dl { margin: 0; }
+  .cls dt {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ink-3); margin-top: 14px;
+  }
+  .cls dd { margin: 3px 0 0; font-size: 15.5px; line-height: 1.45; color: var(--ink-2); }
+
+  ol.takeaways { list-style: none; padding: 0; margin: 8px 0 0; counter-reset: t; }
+  ol.takeaways li {
+    counter-increment: t; position: relative;
+    padding: 18px 0 18px 46px; border-top: 1px solid var(--rule);
+  }
+  ol.takeaways li:last-child { border-bottom: 1px solid var(--rule); }
+  ol.takeaways li::before {
+    content: counter(t, decimal-leading-zero);
+    position: absolute; left: 0; top: 21px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px; font-weight: 600; color: var(--amber);
+    letter-spacing: .06em;
+  }
+  ol.takeaways b { display: block; font-weight: 600; margin-bottom: 4px; }
+  ol.takeaways span { color: var(--ink-2); font-size: 16px; }
+
+  .limits {
+    background: var(--sunken); border-radius: 4px;
+    padding: 26px 28px; margin-top: 8px;
+  }
+  .limits ul { margin: 0; padding-left: 20px; }
+  .limits li { margin-bottom: 10px; color: var(--ink-2); font-size: 16px; }
+  .limits li:last-child { margin-bottom: 0; }
+
+  footer {
+    max-width: 1040px; margin: 76px auto 0; padding: 24px 24px 0;
+    border-top: 1px solid var(--rule);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--ink-3);
+    display: flex; flex-wrap: wrap; gap: 8px 28px;
+  }
+
+  @media (max-width: 620px) {
+    body { font-size: 16px; }
+  }
+
+  :root { color-scheme: light dark; }
+  html, body { margin: 0; }
+  .backlink {
+    max-width: 1040px; margin: 0 auto; padding: 28px 24px 0;
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  }
+  .backlink a { color: var(--ink-3); text-decoration: none; }
+  .backlink a:hover, .backlink a:focus-visible { color: var(--amber); }
+  header.mast { padding-top: 40px; }
+</style>
+</head>
+<body>
+<nav class="backlink"><a href="{{ site.baseurl }}/">&larr; natn.net</a></nav>
+
+<header class="mast">
+  <p class="eyebrow">Systems overview &middot; Autonomous SDLC fleet &middot; September 2026</p>
+  <h1>The NatnLabs SDLC</h1>
+  <p class="standfirst">A small fleet of Claude Code sessions writes, reviews, and ships code across a set of personal projects with a human only in the loop for judgment calls. This is how that fleet is put together.</p>
+</header>
+<div class="mast-rule"></div>
+
+<main>
+
+  <section class="col">
+    <h2>The shape of it</h2>
+    <p class="lead">Two roles run continuously, roaming across every project rather than being pinned to one repo each.</p>
+    <p><strong>Product Owner (PO)</strong> files issues from bug reports and ideas, reviews implementation plans posted by Engineers, checks finished work against acceptance criteria, and merges what passes.</p>
+    <p><strong>Engineer</strong> picks up an issue, posts a plan, implements it, opens a pull request, and responds to review feedback.</p>
+    <p>Each pickup &mdash; one issue, from claim to close &mdash; runs as its own process-scoped session. It starts, does one unit of work, and exits; it does not idle waiting for something to happen. A lightweight supervisor around each role restarts it for the next pickup and wakes it on demand rather than polling.</p>
+  </section>
+
+  <section class="col">
+    <h2>The issue is the source of truth</h2>
+    <p>Nothing about a piece of work lives in a chat transcript, a side channel, or a model's memory. The GitHub issue <em>is</em> the record: its labels encode who owns it and what state it's in, its comments carry the plan, the review, and the reasoning behind any judgment call.</p>
+    <p>Any session &mdash; the one that started the work, or a completely fresh one three days later &mdash; can read the issue and pick up exactly where the last one left off. That is what makes the process-per-pickup model workable: state doesn't need to survive in a running process, because it was never kept there.</p>
+  </section>
+
+  <figure class="evidence ok">
+    <div class="evidence-head">Pattern &middot; the one piece of explicit dependency wiring</div>
+    <div class="evidence-body"><pre>Blocked-by: #N</pre></div>
+    <figcaption>Everything else &mdash; priority, ownership, review status &mdash; is carried as a label, not a trailer.</figcaption>
+  </figure>
+
+  <section class="wide">
+    <h2>Blast radius sets the autonomy</h2>
+    <p class="col">Not every repo gets the same amount of unsupervised trust.</p>
+    <div class="classes">
+      <article class="cls">
+        <div class="cls-stripe"></div>
+        <div class="cls-inner">
+          <h4>New repo</h4>
+          <dl>
+            <dt>Merge gate</dt><dd>Human reviews and merges every PR</dd>
+            <dt>Reasoning</dt><dd>No track record yet to extend trust against</dd>
+          </dl>
+        </div>
+      </article>
+      <article class="cls">
+        <div class="cls-stripe"></div>
+        <div class="cls-inner">
+          <h4>Proven repo</h4>
+          <dl>
+            <dt>Merge gate</dt><dd>Self-merge once review and CI pass</dd>
+            <dt>Reasoning</dt><dd>Promoted after a run of clean merges &mdash; no reverts, no red CI</dd>
+          </dl>
+        </div>
+      </article>
+      <article class="cls">
+        <div class="cls-stripe"></div>
+        <div class="cls-inner">
+          <h4>Control-plane repo</h4>
+          <dl>
+            <dt>Merge gate</dt><dd>Self-merge, promoted the slow way</dd>
+            <dt>Reasoning</dt><dd>23 clean pull requests, zero reverts, before earning the same trust every other session reads its scripts from</dd>
+          </dl>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="col">
+    <h2>Safety invariants</h2>
+    <p>A short list of rules sits above the normal autonomy model and can't be argued around by a plan, an approval, or a persuasive comment thread &mdash; things like never force-pushing over another session's work, never bypassing a required review gate, never taking an irreversible action without it being visible in the issue thread first.</p>
+    <p>Everything else is negotiable through the normal PO/Engineer conversation. These aren't.</p>
+  </section>
+
+  <section class="col">
+    <h2>What the human actually does</h2>
+    <p>Mostly: unblock. Decisions that need real-world judgment &mdash; a security tradeoff, a scope call that isn't in either the issue or the code, an external account or credential nothing in the fleet can provision itself &mdash; get flagged onto a person, and everything else keeps moving around that one blocked issue.</p>
+    <p>The rest of the loop &mdash; filing, planning, implementing, reviewing, merging &mdash; runs without a person watching it happen.</p>
+  </section>
+
+</main>
+
+<footer>
+  <span>natn.net &middot; systems overview</span>
+  <span>Public description, September 2026</span>
+</footer>
+</body>
+</html>

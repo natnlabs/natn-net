@@ -1,0 +1,294 @@
+---
+permalink: /articles/dreamfinder/
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Dreamfinder is the one gateway every AI assistant reads and writes a personal knowledge base through — what it enforces, what it merely advises, and why the split matters.">
+<title>Dreamfinder</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+  :root {
+    --ground:   #EDEFEA;
+    --surface:  #F7F8F4;
+    --sunken:   #E4E7DF;
+    --ink:      #191D19;
+    --ink-2:    #4A524C;
+    --ink-3:    #7C857E;
+    --rule:     #D3D8CE;
+    --amber:    #A0590A;
+    --amber-dim:#C9A470;
+    --teal:     #146B60;
+    --shadow:   0 1px 2px rgba(25,29,25,.06), 0 8px 24px -12px rgba(25,29,25,.14);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #131614;
+      --surface:  #1B1F1C;
+      --sunken:   #0E100F;
+      --ink:      #E4E8E1;
+      --ink-2:    #A8B0A7;
+      --ink-3:    #79827A;
+      --rule:     #2C322D;
+      --amber:    #E0A24A;
+      --amber-dim:#6E5730;
+      --teal:     #4FB3A3;
+      --shadow:   0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:   #131614;
+    --surface:  #1B1F1C;
+    --sunken:   #0E100F;
+    --ink:      #E4E8E1;
+    --ink-2:    #A8B0A7;
+    --ink-3:    #79827A;
+    --rule:     #2C322D;
+    --amber:    #E0A24A;
+    --amber-dim:#6E5730;
+    --teal:     #4FB3A3;
+    --shadow:   0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: Spectral, Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main { max-width: 1040px; margin: 0 auto; padding: 0 24px 96px; }
+
+  .col   { max-width: 65ch; margin-inline: auto; }
+  .wide  { max-width: 1040px; margin-inline: auto; }
+
+  header.mast {
+    max-width: 1040px; margin: 0 auto; padding: 72px 24px 0;
+  }
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    font-size: 11px; font-weight: 500; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--ink-3);
+    margin: 0 0 28px;
+  }
+  h1 {
+    font-family: Spectral, Georgia, serif;
+    font-weight: 600; font-size: clamp(38px, 6.4vw, 62px);
+    line-height: 1.04; letter-spacing: -.02em;
+    text-wrap: balance; margin: 0 0 24px; max-width: 16ch;
+  }
+  .standfirst {
+    font-size: clamp(18px, 2.1vw, 21px); line-height: 1.55;
+    color: var(--ink-2); max-width: 56ch; margin: 0;
+    text-wrap: pretty;
+  }
+  .mast-rule {
+    height: 1px; background: var(--rule);
+    max-width: 1040px; margin: 56px auto 0;
+  }
+
+  section { margin-top: 60px; }
+  h2 {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    font-size: 13px; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--amber);
+    margin: 0 0 20px; text-wrap: balance;
+  }
+  h3 {
+    font-family: Spectral, Georgia, serif;
+    font-size: 22px; font-weight: 600; letter-spacing: -.01em;
+    margin: 36px 0 12px; text-wrap: balance;
+  }
+  p { margin: 0 0 18px; text-wrap: pretty; }
+  p.lead { font-size: 19px; color: var(--ink-2); }
+  strong { font-weight: 600; }
+  em { font-style: italic; }
+  a { color: var(--amber); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 2px; }
+
+  code {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    font-size: .86em; background: var(--sunken);
+    padding: .1em .34em; border-radius: 3px;
+    overflow-wrap: break-word;
+  }
+
+  figure.evidence {
+    margin: 26px auto; max-width: 65ch;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--amber);
+    border-radius: 3px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  figure.evidence.ok { border-left-color: var(--teal); }
+  .evidence-head {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10px; font-weight: 600; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-3);
+    padding: 11px 18px 0;
+  }
+  .evidence-body { overflow-x: auto; padding: 8px 18px 16px; }
+  .evidence-body pre {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12.5px; line-height: 1.72; color: var(--ink-2);
+    margin: 0; white-space: pre;
+  }
+  .evidence-body pre b { color: var(--ink); font-weight: 600; }
+  figcaption {
+    font-size: 14px; color: var(--ink-3);
+    padding: 0 18px 14px; border-top: 1px solid var(--rule);
+    padding-top: 12px;
+  }
+
+  .classes {
+    display: grid; gap: 16px; margin-top: 8px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .cls {
+    background: var(--surface); border: 1px solid var(--rule);
+    border-radius: 4px; padding: 0 0 20px; box-shadow: var(--shadow);
+    display: flex; flex-direction: column;
+  }
+  .cls-stripe { height: 3px; background: var(--teal); border-radius: 4px 4px 0 0; }
+  .cls.exposed .cls-stripe { background: var(--amber); }
+  .cls-inner { padding: 20px 20px 0; }
+  .cls h4 {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--ink);
+    margin: 0 0 16px; line-height: 1.5;
+  }
+  .cls dl { margin: 0; }
+  .cls dt {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ink-3); margin-top: 14px;
+  }
+  .cls dd { margin: 3px 0 0; font-size: 15.5px; line-height: 1.45; color: var(--ink-2); }
+
+  ol.takeaways { list-style: none; padding: 0; margin: 8px 0 0; counter-reset: t; }
+  ol.takeaways li {
+    counter-increment: t; position: relative;
+    padding: 18px 0 18px 46px; border-top: 1px solid var(--rule);
+  }
+  ol.takeaways li:last-child { border-bottom: 1px solid var(--rule); }
+  ol.takeaways li::before {
+    content: counter(t, decimal-leading-zero);
+    position: absolute; left: 0; top: 21px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px; font-weight: 600; color: var(--amber);
+    letter-spacing: .06em;
+  }
+  ol.takeaways b { display: block; font-weight: 600; margin-bottom: 4px; }
+  ol.takeaways span { color: var(--ink-2); font-size: 16px; }
+
+  footer {
+    max-width: 1040px; margin: 76px auto 0; padding: 24px 24px 0;
+    border-top: 1px solid var(--rule);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--ink-3);
+    display: flex; flex-wrap: wrap; gap: 8px 28px;
+  }
+
+  @media (max-width: 620px) {
+    body { font-size: 16px; }
+  }
+
+  :root { color-scheme: light dark; }
+  html, body { margin: 0; }
+  .backlink {
+    max-width: 1040px; margin: 0 auto; padding: 28px 24px 0;
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  }
+  .backlink a { color: var(--ink-3); text-decoration: none; }
+  .backlink a:hover, .backlink a:focus-visible { color: var(--amber); }
+  header.mast { padding-top: 40px; }
+</style>
+</head>
+<body>
+<nav class="backlink"><a href="{{ site.baseurl }}/">&larr; natn.net</a></nav>
+
+<header class="mast">
+  <p class="eyebrow">Systems overview &middot; Vault infrastructure &middot; September 2026</p>
+  <h1>Dreamfinder</h1>
+  <p class="standfirst">Several different assistants — a chat interface, a coding agent, a messaging bot — all need to read and write the same personal knowledge base. Dreamfinder is the one door all of them go through to do that.</p>
+</header>
+<div class="mast-rule"></div>
+
+<main>
+
+  <section class="col">
+    <h2>Why one gateway</h2>
+    <p>Before Dreamfinder, every consumer that touched the vault held its own access token, and each one had slightly different opinions about what was safe to write. That produces two chronic problems: credential sprawl &mdash; every new consumer is another secret to provision, rotate, and eventually find leaking &mdash; and drift, where each consumer's private idea of &ldquo;a valid note&rdquo; slowly diverges from everyone else's.</p>
+    <p>Consolidating behind one gateway fixes both. There is one identity that actually touches the vault's storage, and one place where &ldquo;is this write safe&rdquo; gets decided, regardless of which assistant asked for it.</p>
+  </section>
+
+  <section class="wide">
+    <h2>What's enforced vs. what's advised</h2>
+    <p class="col">Dreamfinder draws a hard line between two kinds of rule.</p>
+    <div class="classes">
+      <article class="cls">
+        <div class="cls-stripe"></div>
+        <div class="cls-inner">
+          <h4>Invariants</h4>
+          <dl>
+            <dt>Where</dt><dd>Enforced in the gateway's own code</dd>
+            <dt>Examples</dt><dd>Legal filename, valid YAML frontmatter, path stays inside the vault, write mode stated explicitly</dd>
+            <dt>On violation</dt><dd>Write rejected outright</dd>
+          </dl>
+        </div>
+      </article>
+      <article class="cls exposed">
+        <div class="cls-stripe"></div>
+        <div class="cls-inner">
+          <h4>Conventions</h4>
+          <dl>
+            <dt>Where</dt><dd>A companion skill the gateway hands to consumers</dd>
+            <dt>Examples</dt><dd>Frontmatter fields per note type, filename casing, which folder a note belongs in, tag naming</dd>
+            <dt>On violation</dt><dd>Write still succeeds; drift caught by a periodic pass</dd>
+          </dl>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="col">
+    <p>Conventions change constantly as the vault's owner refines how he organizes things, and baking that into the server would mean every taxonomy tweak becomes a deploy. Structural invariants almost never change and exist to prevent actual damage &mdash; a malformed file, a path escape &mdash; so those live where they're enforced consistently rather than trusted to each consumer's judgment.</p>
+    <p>Being liberal about what's accepted and conservative about what's advised keeps the gateway from becoming brittle every time a convention shifts.</p>
+  </section>
+
+  <section class="col">
+    <h2>Search is more than one shape</h2>
+    <p>Five read paths, each answering a different kind of question: fetch a note you already know the path to, browse a folder, find notes by filename pattern, grep note bodies for an exact string, or search by meaning across the whole vault.</p>
+    <p>Keyword and semantic search aren't competing with each other &mdash; one finds strings, the other finds ideas &mdash; and a consumer picks whichever the question actually calls for.</p>
+  </section>
+
+  <section class="col">
+    <h2>Small design choices that mattered</h2>
+    <p class="lead">A few decisions came out of running this in production rather than planning it on paper.</p>
+    <h3>Binary files return by reference, not inline</h3>
+    <p>A 400&nbsp;KB image costs real context if it's stuffed into a response as base64 &mdash; and the model almost never needs the bytes, only the human-facing surface does. A read returns a short-lived fetch URL instead; a consumer opts in to inline bytes only when it genuinely needs them, still capped so a misbehaving request can't blow the budget by accident.</p>
+    <h3>Deploys promote only after they prove themselves</h3>
+    <p>A new version takes zero production traffic at first, gets a real health check against its own private URL, and only then gets the traffic switch flipped. A broken deploy stays contained &mdash; nothing that was already working is ever put at risk to test the new thing.</p>
+    <h3>Attribution survives a single write identity</h3>
+    <p>Every write is authored by the same one gateway identity, but the commit carries a trailer naming which consumer actually asked for it &mdash; so the audit trail at the version-control layer still knows who did what, even though only one identity ever touches storage.</p>
+  </section>
+
+</main>
+
+<footer>
+  <span>natn.net &middot; systems overview</span>
+  <span>Public description, September 2026</span>
+</footer>
+</body>
+</html>

@@ -1,0 +1,198 @@
+---
+permalink: /
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Public artifacts and systems logs — configs, workflows, and write-ups worth a stable link.">
+<title>natn.net</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+  :root {
+    --ground:   #EDEFEA;
+    --surface:  #F7F8F4;
+    --sunken:   #E4E7DF;
+    --ink:      #191D19;
+    --ink-2:    #4A524C;
+    --ink-3:    #7C857E;
+    --rule:     #D3D8CE;
+    --amber:    #A0590A;
+    --amber-dim:#C9A470;
+    --teal:     #146B60;
+    --shadow:   0 1px 2px rgba(25,29,25,.06), 0 8px 24px -12px rgba(25,29,25,.14);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #131614;
+      --surface:  #1B1F1C;
+      --sunken:   #0E100F;
+      --ink:      #E4E8E1;
+      --ink-2:    #A8B0A7;
+      --ink-3:    #79827A;
+      --rule:     #2C322D;
+      --amber:    #E0A24A;
+      --amber-dim:#6E5730;
+      --teal:     #4FB3A3;
+      --shadow:   0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:   #131614;
+    --surface:  #1B1F1C;
+    --sunken:   #0E100F;
+    --ink:      #E4E8E1;
+    --ink-2:    #A8B0A7;
+    --ink-3:    #79827A;
+    --rule:     #2C322D;
+    --amber:    #E0A24A;
+    --amber-dim:#6E5730;
+    --teal:     #4FB3A3;
+    --shadow:   0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: Spectral, Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+  }
+
+  main { max-width: 1040px; margin: 0 auto; padding: 0 24px 96px; }
+  .col { max-width: 65ch; margin-inline: auto; }
+
+  header.mast {
+    max-width: 1040px; margin: 0 auto; padding: 72px 24px 0;
+  }
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    font-size: 11px; font-weight: 500; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--ink-3);
+    margin: 0 0 28px;
+  }
+  h1 {
+    font-family: Spectral, Georgia, serif;
+    font-weight: 600; font-size: clamp(38px, 6.4vw, 62px);
+    line-height: 1.04; letter-spacing: -.02em;
+    text-wrap: balance; margin: 0 0 24px; max-width: 16ch;
+  }
+  .standfirst {
+    font-size: clamp(18px, 2.1vw, 21px); line-height: 1.55;
+    color: var(--ink-2); max-width: 56ch; margin: 0;
+    text-wrap: pretty;
+  }
+  .mast-rule {
+    height: 1px; background: var(--rule);
+    max-width: 1040px; margin: 56px auto 0;
+  }
+
+  section { margin-top: 60px; }
+  h2 {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    font-size: 13px; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--amber);
+    margin: 0 0 20px; text-wrap: balance;
+  }
+  a { color: var(--amber); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 2px; }
+
+  ul.index { list-style: none; margin: 8px 0 0; padding: 0; }
+  ul.index li {
+    border-top: 1px solid var(--rule);
+  }
+  ul.index li:last-child { border-bottom: 1px solid var(--rule); }
+  ul.index li a.entry {
+    display: block; padding: 22px 0; text-decoration: none;
+    color: var(--ink);
+  }
+  ul.index li a.entry:hover h3,
+  ul.index li a.entry:focus-visible h3 { color: var(--amber); }
+  ul.index .kicker {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10.5px; font-weight: 500; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--ink-3);
+    margin: 0 0 8px;
+  }
+  ul.index h3 {
+    font-family: Spectral, Georgia, serif;
+    font-weight: 600; font-size: 24px; letter-spacing: -.01em;
+    margin: 0 0 8px; text-wrap: balance;
+  }
+  ul.index p {
+    margin: 0; color: var(--ink-2); font-size: 16px; max-width: 62ch;
+  }
+
+  footer {
+    max-width: 1040px; margin: 76px auto 0; padding: 24px 24px 0;
+    border-top: 1px solid var(--rule);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--ink-3);
+    display: flex; flex-wrap: wrap; gap: 8px 28px;
+  }
+
+  @media (max-width: 620px) {
+    body { font-size: 16px; }
+    ul.index h3 { font-size: 21px; }
+  }
+
+  :root { color-scheme: light dark; }
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <p class="eyebrow">natnlabs &middot; systems &amp; field notes</p>
+  <h1>natn.net</h1>
+  <p class="standfirst">Public artifacts and systems logs — configs, workflows, and write-ups worth a stable link.</p>
+</header>
+<div class="mast-rule"></div>
+
+<main>
+  <section class="col">
+    <h2>Articles</h2>
+    <ul class="index">
+      <li>
+        <a class="entry" href="articles/sdlc/">
+          <p class="kicker">Systems overview &middot; September 2026</p>
+          <h3>The NatnLabs SDLC</h3>
+          <p>How a fleet of AI coding agents runs its own software-delivery lifecycle — issue-driven, blast-radius-scoped autonomy, and a short list of rules nothing can argue around.</p>
+        </a>
+      </li>
+      <li>
+        <a class="entry" href="articles/dreamfinder/">
+          <p class="kicker">Systems overview &middot; September 2026</p>
+          <h3>Dreamfinder</h3>
+          <p>The one gateway every AI assistant reads and writes a personal knowledge base through — what it enforces, what it merely advises, and why the split matters.</p>
+        </a>
+      </li>
+      <li>
+        <a class="entry" href="articles/the-unprotected-component/">
+          <p class="kicker">Field note &middot; August 2026</p>
+          <h3>The Unprotected Component</h3>
+          <p>Why an agent fleet's stateless processes outlasted its long-lived ones — a self-modifying system spent a day producing confident, wrong diagnoses of its own behaviour.</p>
+        </a>
+      </li>
+      <li>
+        <a class="entry" href="articles/claude-md-web-research/">
+          <p class="kicker">Reference</p>
+          <h3>Web research</h3>
+          <p>A CLAUDE.md section on fetching pages locally, treating fetched content as data rather than instruction, and reporting what couldn't be reached.</p>
+        </a>
+      </li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <span>natn.net</span>
+  <span>Public artifact host</span>
+</footer>
+</body>
+</html>

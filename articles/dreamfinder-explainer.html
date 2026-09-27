@@ -1,0 +1,270 @@
+---
+permalink: /articles/dreamfinder-explainer/
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A two-minute explainer for Dreamfinder: one shared memory for every AI assistant you use, built from notes you already own.">
+<meta property="og:title" content="Dreamfinder, in two minutes">
+<meta property="og:description" content="A two-minute explainer for Dreamfinder: one shared memory for every AI assistant you use, built from notes you already own.">
+<meta property="og:type" content="video.other">
+<meta property="og:image" content="https://natn.net/articles/media/dreamfinder-explainer-poster.jpg">
+<meta property="og:video" content="https://natn.net/articles/media/dreamfinder-explainer.mp4">
+<meta property="og:video:type" content="video/mp4">
+<meta property="og:video:width" content="1920">
+<meta property="og:video:height" content="1080">
+<meta name="twitter:card" content="summary_large_image">
+<title>Dreamfinder, in two minutes</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+  :root {
+    --ground:   #EDEFEA;
+    --surface:  #F7F8F4;
+    --sunken:   #E4E7DF;
+    --ink:      #191D19;
+    --ink-2:    #4A524C;
+    --ink-3:    #7C857E;
+    --rule:     #D3D8CE;
+    --amber:    #A0590A;
+    --teal:     #146B60;
+    --shadow:   0 1px 2px rgba(25,29,25,.06), 0 8px 24px -12px rgba(25,29,25,.14);
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #131614;
+      --surface:  #1B1F1C;
+      --sunken:   #0E100F;
+      --ink:      #E4E8E1;
+      --ink-2:    #A8B0A7;
+      --ink-3:    #79827A;
+      --rule:     #2C322D;
+      --amber:    #E0A24A;
+      --teal:     #4FB3A3;
+      --shadow:   0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:   #131614;
+    --surface:  #1B1F1C;
+    --sunken:   #0E100F;
+    --ink:      #E4E8E1;
+    --ink-2:    #A8B0A7;
+    --ink-3:    #79827A;
+    --rule:     #2C322D;
+    --amber:    #E0A24A;
+    --teal:     #4FB3A3;
+    --shadow:   0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--ground); color: var(--ink);
+    font-family: Spectral, Georgia, "Times New Roman", serif;
+    font-size: 17px; line-height: 1.62; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 1040px; margin: 0 auto; padding: 0 24px 96px; }
+  .col { max-width: 65ch; margin-inline: auto; }
+
+  .backlink {
+    max-width: 1040px; margin: 0 auto; padding: 28px 24px 0;
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  }
+  .backlink a { color: var(--ink-3); text-decoration: none; }
+  .backlink a:hover, .backlink a:focus-visible { color: var(--amber); }
+
+  header.mast { max-width: 1040px; margin: 0 auto; padding: 40px 24px 0; }
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+    font-size: 11px; font-weight: 500; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--ink-3); margin: 0 0 28px;
+  }
+  h1 {
+    font-family: Spectral, Georgia, serif; font-weight: 600;
+    font-size: clamp(38px, 6.4vw, 62px); line-height: 1.04; letter-spacing: -.02em;
+    text-wrap: balance; margin: 0 0 24px; max-width: 16ch;
+  }
+  .standfirst {
+    font-size: clamp(18px, 2.1vw, 21px); line-height: 1.55;
+    color: var(--ink-2); max-width: 56ch; margin: 0; text-wrap: pretty;
+  }
+  .mast-rule { height: 1px; background: var(--rule); max-width: 1040px; margin: 56px auto 0; }
+
+  section { margin-top: 60px; }
+  section.film-wrap { margin-top: 48px; }
+  h2 {
+    font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    font-size: 13px; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--amber); margin: 0 0 20px;
+  }
+  p { margin: 0 0 18px; text-wrap: pretty; }
+  p.lead { font-size: 19px; color: var(--ink-2); }
+  a { color: var(--amber); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 2px; }
+
+  figure.film {
+    margin: 0 auto; max-width: 1040px; background: #0B0A1F;
+    border: 1px solid var(--rule); border-radius: 6px; box-shadow: var(--shadow); overflow: hidden;
+  }
+  figure.film video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #0B0A1F; }
+  figure.film figcaption {
+    margin: 0; padding: 12px 18px; background: var(--surface);
+    border-top: 1px solid var(--rule); font-size: 14px; color: var(--ink-3);
+  }
+
+  ol.chapters { list-style: none; padding: 0; margin: 8px 0 0; }
+  ol.chapters li { border-top: 1px solid var(--rule); }
+  ol.chapters li:last-child { border-bottom: 1px solid var(--rule); }
+  ol.chapters button {
+    all: unset; box-sizing: border-box; cursor: pointer; width: 100%;
+    display: grid; grid-template-columns: 62px 1fr; gap: 4px 12px; align-items: baseline;
+    padding: 14px 4px;
+  }
+  ol.chapters button:hover b, ol.chapters button:focus-visible b { color: var(--amber); }
+  ol.chapters button:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; border-radius: 2px; }
+  ol.chapters time {
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; font-weight: 600;
+    letter-spacing: .06em; color: var(--amber);
+  }
+  ol.chapters b { font-weight: 600; }
+  ol.chapters span { grid-column: 2; color: var(--ink-2); font-size: 16px; }
+
+  figure.evidence {
+    margin: 26px auto; background: var(--surface);
+    border: 1px solid var(--rule); border-left: 3px solid var(--teal);
+    border-radius: 3px; box-shadow: var(--shadow); overflow: hidden;
+  }
+  .evidence-head {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 10px; font-weight: 600; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-3); padding: 11px 18px 0;
+  }
+  .evidence-body { overflow-x: auto; padding: 8px 18px 16px; }
+  .evidence-body pre {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12.5px; line-height: 1.72; color: var(--ink-2); margin: 0; white-space: pre;
+  }
+  .evidence-body pre b { color: var(--ink); font-weight: 600; }
+  figure.evidence figcaption {
+    font-size: 14px; color: var(--ink-3);
+    padding: 12px 18px 14px; border-top: 1px solid var(--rule);
+  }
+
+  details.transcript {
+    background: var(--surface); border: 1px solid var(--rule); border-radius: 3px;
+    padding: 0 18px; margin-top: 8px;
+  }
+  details.transcript summary {
+    cursor: pointer; padding: 14px 0;
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; font-weight: 600;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2);
+  }
+  details.transcript[open] summary { border-bottom: 1px solid var(--rule); margin-bottom: 14px; }
+  details.transcript p { font-size: 16px; color: var(--ink-2); }
+
+  footer {
+    max-width: 1040px; margin: 76px auto 0; padding: 24px 24px 0;
+    border-top: 1px solid var(--rule);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--ink-3); display: flex; flex-wrap: wrap; gap: 8px 28px;
+  }
+
+  @media (max-width: 620px) { body { font-size: 16px; } }
+</style>
+</head>
+<body>
+<nav class="backlink"><a href="{{ site.baseurl }}/">&larr; natn.net</a></nav>
+<header class="mast">
+  <p class="eyebrow">Explainer &middot; Vault infrastructure &middot; September 2026</p>
+  <h1>Dreamfinder, in two minutes</h1>
+  <p class="standfirst">Every AI assistant forgets you between conversations. Dreamfinder gives all of them one shared memory: your own notes. This is the short version, with no protocol talk.</p>
+</header>
+<div class="mast-rule"></div>
+
+<main>
+  <section class="film-wrap">
+    <figure class="film">
+      <video id="film" controls playsinline preload="metadata" poster="../media/dreamfinder-explainer-poster.jpg" aria-describedby="film-cap">
+        <source src="../media/dreamfinder-explainer.mp4" type="video/mp4">
+        Your browser can’t play this video. <a href="../media/dreamfinder-explainer.mp4">Download the MP4</a> instead.
+      </video>
+      <figcaption id="film-cap">1 min 58 s &middot; narrated, with captions built in &middot; the full transcript is below</figcaption>
+    </figure>
+  </section>
+
+  <section class="col">
+    <h2>Chapters</h2>
+    <p class="lead">Jump straight to the part you care about.</p>
+    <ol class="chapters">
+      <li><button type="button" data-t="0"><time>0:00</time><b>The disappearing idea</b><span>A spark shows up, glows, and is gone before anyone writes it down.</span></button></li>
+      <li><button type="button" data-t="9.8"><time>0:09</time><b>Starting from zero</b><span>Half-used notebooks, and assistants that forget everything between chats.</span></button></li>
+      <li><button type="button" data-t="19.4"><time>0:19</time><b>Meet Dreamfinder</b><span>One shared memory for every assistant, made of your own notes.</span></button></li>
+      <li><button type="button" data-t="26.4"><time>0:26</time><b>Catch it</b><span>Text, voice, photo, link or PDF from your phone. It files itself.</span></button></li>
+      <li><button type="button" data-t="42.3"><time>0:42</time><b>No re-explaining</b><span>Every assistant gets the same house rules for where things go and how they connect.</span></button></li>
+      <li><button type="button" data-t="51.3"><time>0:51</time><b>Find it</b><span>Ask in your own words and it finds the note by meaning.</span></button></li>
+      <li><button type="button" data-t="63.3"><time>1:03</time><b>It comes to you</b><span>A daily spark, an inbox that sorts itself, and a quiet checkup.</span></button></li>
+      <li><button type="button" data-t="78.8"><time>1:18</time><b>Nothing lost</b><span>Full history, undo, and contradictions flagged rather than overwritten.</span></button></li>
+      <li><button type="button" data-t="93.5"><time>1:33</time><b>Still yours</b><span>Plain text in a folder you own, with or without Dreamfinder.</span></button></li>
+      <li><button type="button" data-t="104.6"><time>1:44</time><b>The name</b><span>Who it's named for, and what it's for.</span></button></li>
+    </ol>
+  </section>
+
+  <section class="col">
+    <h2>How it was made</h2>
+    <p>Claude wrote, voiced, animated and scored the whole video in one working session, drawing on the design notes Dreamfinder itself serves. Nothing was drawn by hand and no stock footage was used: every frame comes from a small deterministic canvas renderer, captured one frame at a time.</p>
+    <figure class="evidence">
+      <div class="evidence-head">Pipeline</div>
+      <div class="evidence-body"><pre><b>script</b>   ten scenes, one idea each, written from the product copy
+<b>voice</b>    open-weights TTS, rendered one line at a time; those timings drive every cue
+<b>picture</b>  HTML canvas, <b>renderAt(t)</b> &rarr; headless browser &rarr; 30 fps &rarr; H.264
+<b>score</b>    procedural music-box waltz in D, ducked under the voice
+<b>foley</b>    189 synthesized effects, timed to the same events as the animation
+<b>check</b>    final mix transcribed back to text and compared with the script</pre></div>
+      <figcaption>The video only claims features that are already running. Anything that's still designed but not shipped is left out.</figcaption>
+    </figure>
+    <p>For the architecture behind the claims, including what the gateway enforces and what it only advises, read the longer write-up: <a href="{{ site.baseurl }}/articles/dreamfinder/">Dreamfinder</a>.</p>
+  </section>
+
+  <section class="col">
+    <h2>Transcript</h2>
+    <details class="transcript">
+      <summary>Read the full narration</summary>
+      <p>You had a brilliant idea this morning. It sparked. It glowed. And then… poof. Where did it go?</p>
+      <p>Ideas move fast. Notebooks… don’t. And every AI assistant you talk to? It starts from zero. Every. Single. Time.</p>
+      <p>Meet Dreamfinder. It gives all of your AI assistants one shared memory: your own notes.</p>
+      <p>When an idea sparks, just send it. Type it. Say it. Snap a photo. Share a link, or a PDF. In the car, on a walk, at midnight. It all lands in the same library. No folder to pick. No tags to invent. It files itself.</p>
+      <p>Dreamfinder hands every assistant your house rules: where things go, how they’re tagged, how they connect. So you never explain it twice.</p>
+      <p>Later, you won’t remember the exact words. You don’t need to. Just ask: “what did I decide about the cabin wiring?” And it finds the note by meaning, even if it never uses those words.</p>
+      <p>Best of all? You don’t have to remember to go looking. Every morning at nine, an old spark drops by to say hello. And twice a day, the inbox tidies itself, while a quiet checkup catches stray notes and broken links, before they pile up.</p>
+      <p>Step away for a week. Or a month. Nothing’s lost. Every change is recorded: who, when, and what it looked like before. So anything can be undone. And if a new note contradicts an old one, it gets flagged, not overwritten.</p>
+      <p>Your notes stay plain text, in a folder you own. Open them. Edit them by hand. Take them anywhere. Unplug Dreamfinder tomorrow, and every word is still yours.</p>
+      <p>It’s named for a traveler who wanders off… and comes back with something worth keeping. Dreamfinder. Catch the spark. Keep the thread.</p>
+    </details>
+  </section>
+</main>
+
+<footer>
+  <span>natn.net</span>
+  <span>Explainer</span>
+  <span>September 2026</span>
+</footer>
+
+<script>
+  (function () {
+    var v = document.getElementById('film');
+    document.querySelectorAll('ol.chapters button').forEach(function (b) {
+      b.addEventListener('click', function () {
+        v.currentTime = parseFloat(b.dataset.t);
+        v.play();
+        v.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,3 +1,5 @@
 title: natn.net
 description: Public artifacts and systems logs
 theme: minima
+url: "https://natn.net"
+baseurl: ""
